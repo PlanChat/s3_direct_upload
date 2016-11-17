@@ -4,11 +4,7 @@
 $ = jQuery
 
 
-guid = ->
-  'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace /[xy]/g, (c) ->
-    r = Math.random() * 16 | 0
-    v = if c == 'x' then r else r & 0x3 | 0x8
-    v.toString(16).toUpperCase()
+
 
 $.fn.S3Uploader = (options) ->
 
@@ -46,11 +42,18 @@ $.fn.S3Uploader = (options) ->
       $wrapping_form.find('.s3_uploader input').prop "disabled", true
       true
 
+  guid = ->
+    'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace /[xy]/g, (c) ->
+      r = Math.random() * 16 | 0
+      v = if c == 'x' then r else r & 0x3 | 0x8
+      v.toString(16).toUpperCase()
+	  
   setUploadForm = ->
     $uploadForm.find("input[type='file']").fileupload
 
       add: (e, data) ->
         file = data.files[0]
+		debugger
         file.unique_id = guid()
 
         unless settings.before_add and not settings.before_add(file)
