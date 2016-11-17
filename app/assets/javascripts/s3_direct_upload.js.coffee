@@ -3,6 +3,13 @@
 
 $ = jQuery
 
+
+guid = ->
+  'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace /[xy]/g, (c) ->
+    r = Math.random() * 16 | 0
+    v = if c == 'x' then r else r & 0x3 | 0x8
+    v.toString(16).toUpperCase()
+
 $.fn.S3Uploader = (options) ->
 
   # support multiple elements
@@ -44,7 +51,7 @@ $.fn.S3Uploader = (options) ->
 
       add: (e, data) ->
         file = data.files[0]
-        file.unique_id = Math.random().toString(36).substr(2,16)
+        file.unique_id = guid()
 
         unless settings.before_add and not settings.before_add(file)
           current_files.push data
